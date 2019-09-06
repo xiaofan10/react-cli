@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node_modules/.bin/webpack-dev-server",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "build": "webpack"
   },
   "author": "fjp",
   "license": "ISC",
@@ -18,9 +19,18 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.5.5",
     "babel-loader": "^8.0.6",
+    "babel-plugin-react-html-attrs": "^2.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "open-browser-webpack-plugin": "^0.0.5",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^3.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "style-loader": "^1.0.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"

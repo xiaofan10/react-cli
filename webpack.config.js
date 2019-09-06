@@ -1,11 +1,16 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+
 module.exports = {
   mode: 'development',
   entry: {
     index: './src/main.js',
-    app: './src/app.js'
+    // app: './src/app.js',
+    // common: ['react', 'react-dom']
   },
   output: {
     filename: '[name].bundle.js',
@@ -21,7 +26,7 @@ module.exports = {
             loader: 'babel-loader',
             options : {
               presets: ["@babel/env", "@babel/preset-react"],
-              plugins: ['@babel/transform-runtime']
+              plugins: ['@babel/transform-runtime', "react-html-attrs"]
               /*babel 对一些公共方法使用了非常小的辅助代码，比如 _extend。 默认情况下会被
               添加到每一个需要它的文件中你可以引入 babel runtime 作为一个独立模块，
               来避免重复引入，需要@babel/runtime支持*/
@@ -29,6 +34,30 @@ module.exports = {
           }
         ]
       },
+      {
+        test: /\.(less)/,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              // localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              // importLoaders: 1 // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                require('autoprefixer'),
+              ]
+            }
+          },
+          'less-loader'
+        ]
+      }
     ]
   },
   resolve: {
@@ -39,16 +68,20 @@ module.exports = {
     compress: true,
     port: 9000,
     hot: true,
+    open: true,
+  },
+  optimization: {
+    runtimeChunk: {
+      name: entrypoint => `runtime~${entrypoint.name}`
+      // name: 'runtime'
+    }
   },
   plugins: [
-    // new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement'
     }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ]
 }
-/*NPM package.json脚本是一种方便有用的方法，
-可以运行本地安装的二进制文件，而无需关心它们的完整路径。只需定义一个脚本：
-并在终端/控制台中运行以下命令：npm run start：devNPM将为您自动引用二进制node_modules文件，并执行文件或命令。*/
