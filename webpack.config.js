@@ -1,9 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: 'development',
@@ -38,13 +40,21 @@ module.exports = {
         test: /\.(less)/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          // 'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it uses publicPath in webpackOptions.output
+              publicPath: '../',
+              hmr: process.env.NODE_ENV === 'development',
+            },
           {
             loader: 'css-loader',
             options: {
               modules: true,
               // localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              // importLoaders: 1 // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+              importLoaders: 1 // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
             }
           },
           {
@@ -57,6 +67,14 @@ module.exports = {
           },
           'less-loader'
         ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]?[hash]',
+          // publicPath: 'assets/'
+        }
       }
     ]
   },
@@ -70,6 +88,7 @@ module.exports = {
     hot: true,
     open: true,
   },
+  // chunk
   optimization: {
     runtimeChunk: {
       name: entrypoint => `runtime~${entrypoint.name}`
@@ -83,5 +102,12 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
   ]
 }
