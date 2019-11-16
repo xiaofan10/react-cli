@@ -1,10 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 class Error extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+  render () {
     return (
       <div>
         子组建
@@ -13,4 +10,4 @@ class Error extends React.Component {
   }
 }
 
-export default Error;
+export default Error

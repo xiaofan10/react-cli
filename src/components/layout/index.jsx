@@ -1,20 +1,17 @@
-import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import './index.less';
-class Layout extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './index.less'
 
-  renderLinks() {
+class Layout extends React.Component {
+  renderLinks () {
     const {
       menu
-    } = this.props;
+    } = this.props
 
     return menu.map((item, index) => {
       return (
         <li key={index} className="FF-menu-list-item">
-          <Link 
+          <Link
             to={item.path}
           >
             {item.title}
@@ -24,7 +21,7 @@ class Layout extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return (
       <div className="FF-layout-wrap">
         <div className="FF-layout-menu">
@@ -40,4 +37,4 @@ class Layout extends React.Component {
   }
 }
 
-export default Layout;
+export default Layout

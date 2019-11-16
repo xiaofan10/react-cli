@@ -21,6 +21,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(jsx|js)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        enforce: 'pre'
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude:/(node_modules)/, // 确保转译尽可能少的文件。你可能使用 /\.js$/ 来匹配，这样也许会去转译 node_modules 目录或者其他不需要的源代码。
         use: [

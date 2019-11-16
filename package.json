@@ -7,8 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development node_modules/.bin/webpack-dev-server",
     "start:dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "lint": "eslint --ext .js --ext .jsx src"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "author": "fjp",
   "license": "ISC",
   "devDependencies": {
@@ -18,11 +22,21 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.5.5",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^5.2.1",
     "css-loader": "^3.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-standard": "^4.0.1",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "less": "^3.10.3",
@@ -31,6 +45,7 @@
     "open-browser-webpack-plugin": "^0.0.5",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^3.0.0",
+    "pre-commit": "^1.2.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.2",
