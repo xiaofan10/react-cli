@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter, Route, Switch, Link } from 'react-router-dom';
 import Child from './child.js';
-import Layout from './components/Layout';
-const WORLD = 'HELLO WORLD';
-const child = new Child('黎明');
+import Card from './components/card'
+
+import App from './app';
 
 let root = document.getElementById('root');
 if(!root) {
@@ -11,15 +12,14 @@ if(!root) {
   root.id = 'root';
   document.body.appendChild(root);
 }
-const App = () => {
-  return (
-    <div>
-      <Layout />
-    </div>
-  );
-}
+
+
+
+
 ReactDOM.render(
-  <App />
+  <HashRouter>
+    <App></App>
+  </HashRouter>
   ,root)
 
 if (module.hot) {

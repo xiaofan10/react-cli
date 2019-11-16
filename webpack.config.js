@@ -48,11 +48,12 @@ module.exports = {
               // by default it uses publicPath in webpackOptions.output
               publicPath: '../',
               hmr: process.env.NODE_ENV === 'development',
-            },
+            }
+          },
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: false,
               // localIdentName: '[path][name]__[local]--[hash:base64:5]',
               importLoaders: 1 // 0 => 无 loader(默认); 1 => postcss-loader; 2 => postcss-loader, sass-loader
             }
@@ -84,7 +85,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: 9000,
+    port: 9002,
     hot: true,
     open: true,
   },
