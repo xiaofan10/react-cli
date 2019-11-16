@@ -1,10 +1,7 @@
-import React from 'react';
-import indexCss from './index.less';
+import React from 'react'
+
 class Card extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+  render () {
     return (
       <div>
         子组建
@@ -13,4 +10,4 @@ class Card extends React.Component {
   }
 }
 
-export default Card;
+export default Card
