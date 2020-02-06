@@ -92,3 +92,11 @@ npm run dev
   "lint" // 这个 lint 指的是 npm run lint 指令，所以要配置这个 script 下的命令，上面已经配置过了
 ],
 ```
+
+### eslint 
+
+```javascript
+  {
+    "semi": ["error", "always"] // 分号的使用 如果不标记会 lint 报错
+  }
+```

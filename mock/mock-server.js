@@ -24,7 +24,9 @@ app.all('*', function (req, res, next) {
 })
 
 app.get('/api', (req, res) => {
-  res.send(123132)
+  console.log(typeof req)
+  console.log(req.route)
+  res.send({ss:234})
 })
 
 app.get('/', (req, res) => {
@@ -34,9 +36,9 @@ app.get('/', (req, res) => {
 })
 
 // 服务监听
-const server = app.listen(6666, function () {
-  console.log(server.address())
-  const host = server.address().address !== '::' ? server.address().address : 'localhost'
+const server = app.listen(8888, 'localhost', function (res,req) {
+  console.log(res,req)
+  const host = server.address().address
   const port = server.address().port
   console.log('应用实例，访问地址为 http://%s:%s', host, port)
 })
