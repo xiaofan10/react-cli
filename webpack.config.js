@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
@@ -19,9 +20,21 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: [ "style-loader", "css-loader"],
-      }
+        test: /\.(css|less)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          // "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: {
+                localIdentName: "[name]__[local]--[hash:base64:5]",
+              },
+            },
+          },
+          "less-loader",
+        ], // 从右到左
+      },
     ],
   },
 
@@ -42,6 +55,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Code Splitting",
     }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css", // 提取的CSS文件名
+    }),
   ],
 
   devServer: {
@@ -51,8 +67,8 @@ module.exports = {
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".less", '.css'],
+    extensions: [".js", ".jsx", ".less", ".css"],
   },
 
-  devtool: 'inline-source-map',
+  devtool: "inline-source-map",
 };
