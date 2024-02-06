@@ -1,28 +1,29 @@
 import { Component } from "react";
+import { Outlet, Link } from "react-router-dom";
 import styles from "./app.less";
-import Welcome from "./page/welcome/index";
 
 class App extends Component {
   constructor(props) { 
     super(props);
     this.state = {
-      name: '张三'
+      name: '李四是啦啦啦啦'
     }
   }
   render() {
     const {name} = this.state;
     return (
-      <>
-        <h1 className={ styles.title }>
-          Hello World
-          <span className={ styles.desc }>Hi</span>
-        </h1>
-        <div className={ styles.content }>
-          大家好,{ name }
+      <div className={styles.wrap}>
+        <div className={styles.aside}>
+          {name}
+          <Link to="/">Home</Link>
+          <Link to="/welcome">About</Link>
+          <Link to="/welcome/lesson">Lesson</Link>
         </div>
-        <Welcome />
-      </>
-    )
+        <div className={styles.main}>
+          <Outlet />
+        </div>
+      </div>
+    );
   }
 }
 
