@@ -1,5 +1,5 @@
 // react 相关教程
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import { ParentB } from "./parent";
 import {ChildA, ChildB} from './child'
 import InfoContext from './context'
@@ -129,9 +129,49 @@ function Lesson3() {
 }
 
 function Lesson4() {
+  const [name, setName] = useState('useCallback')
+  const onNameChange = (e) => {
+   setName(e.target.value) 
+  }
   return (
     <div>
       <h1>React 之 useCallback</h1>
+      <ul>
+        <li>回调函数</li>
+        <li>指定依赖数组，只有数组内依赖改变才会触发更新</li>
+      </ul>
+      <input value={name} onChange={onNameChange}></input>
+      <ParentB  onClick={onNameChange}></ParentB>
+    </div>
+  )
+}
+
+
+
+function Lesson5() {
+  const [count, setCount] = useState(1)
+  const sum = (a, b) => {
+    console.log('sum update')
+    return a + b
+  }
+  const result = useMemo(() => sum(1,2), [])
+
+  const onClick = () => {
+    setCount(preState => preState + 1)
+  }
+  return (
+    <div>
+      <h1>React 之 useMemo</h1>
+      <ul>
+        <li>缓存函数执行结果</li>
+        <li>指定依赖数组，只有数组内依赖改变才会触发更新</li>
+      </ul>
+      <div>
+        计数器：{count}
+
+        <button onClick={onClick}>点击增加</button>
+        总和：{result}
+      </div>
     </div>
   )
 }
@@ -141,7 +181,10 @@ function Lesson() {
     <div>
       <Lesson1></Lesson1>
       <Lesson2></Lesson2>
-      <Lesson3></Lesson3>
+      {/* <Lesson3></Lesson3> */}
+      <Lesson4></Lesson4>
+      <Lesson5></Lesson5>
+
     </div>
   );
 }

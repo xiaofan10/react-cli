@@ -5,10 +5,12 @@ function ChildA () {
   )
 }
 
-function ChildB () {
+function ChildB (props) {
   console.log('update ChildB')
   return (
-    <div>我是ChildB</div>
+    <div>
+      我是ChildB
+    </div>
   )
 }
 
