@@ -1,17 +1,17 @@
-import { Component } from "react";
-import { Outlet, Link } from "react-router-dom";
-import styles from "./app.less";
+import { Component } from 'react'
+import { Outlet, Link } from 'react-router-dom'
+import styles from './app.less'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      name: "李四是啦啦啦啦",
-    };
+      name: '李四是啦啦啦啦',
+    }
   }
 
   render() {
-    const { name } = this.state;
+    const { name } = this.state
     return (
       <div className={styles.wrap}>
         <div className={styles.aside}>
@@ -33,8 +33,8 @@ class App extends Component {
           <Outlet />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
