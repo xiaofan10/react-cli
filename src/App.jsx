@@ -9,7 +9,6 @@ class App extends Component {
       name: '李四是啦啦啦啦',
     }
   }
-
   render() {
     const { name } = this.state
     return (
@@ -20,17 +19,32 @@ class App extends Component {
             <Link to="/">Home</Link>
           </div>
           <div>
-            <Link to="/welcome">Welcome</Link>
+            <Link to="/Lesson">Welcome</Link>
           </div>
           <div>
-            <Link to="/welcome/lesson">Lesson</Link>
+            <Link to="/Lesson/Context">Context</Link>
           </div>
+          <div>
+            <Link to="/Lesson/Ref">Ref</Link>
+          </div>
+          <div>
+            <Link to="/Lesson/Callback">Callback</Link>
+          </div>
+          <div>
+            <Link to="/Lesson/Reducer">Reducer</Link>
+          </div>
+          <div>
+            <Link to="/Lesson/Imperative">Imperative</Link>
+          </div>
+
           <div>
             <Link to="/lesson1">Lesson1</Link>
           </div>
         </div>
         <div className={styles.main}>
-          <Outlet />
+          <div className={styles.box}>
+            <Outlet />
+          </div>
         </div>
       </div>
     )

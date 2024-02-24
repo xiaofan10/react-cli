@@ -1,7 +1,11 @@
 import App from "../App"
 import Welcome from "../page/welcome"
-import Lesson from "../page/lesson"
+import Context from "../page/context"
 import Lesson1 from "../page/lesson-1"
+import Ref from "../page/ref"
+import Callback from "../page/callback"
+import Reducer from "../page/reducer"
+import Imperative from "../page/imperative"
 
 const router = [
   {
@@ -9,12 +13,28 @@ const router = [
     element: <App />,
     children: [
       {
-        path: "welcome",
+        path: "Lesson",
         element: <Welcome />,
         children: [
           {
-            path: "lesson",
-            element: <Lesson />,
+            path: "Context",
+            element: <Context />,
+          },
+          {
+            path: "Ref",
+            element: <Ref />,
+          },
+          {
+            path: "Callback",
+            element: <Callback />,
+          },
+          {
+            path: "Reducer",
+            element: <Reducer />,
+          },
+          {
+            path: "Imperative",
+            element: <Imperative />
           }
         ]
       },

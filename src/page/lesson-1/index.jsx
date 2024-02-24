@@ -1,16 +1,16 @@
 // react 相关教程
-import React, { useState, useContext, useMemo } from "react";
-import { ParentB } from "./parent";
-import {ChildA, ChildB} from './child'
-import InfoContext from './context'
+import React, { useState, useContext, useMemo, useRef } from "react";
+import { ParentB, ParentC, ParentD } from "./parent";
+import { ChildA, ChildB } from "./child";
+import InfoContext from "./context";
 
 function Lesson1() {
   const [name, setName] = useState("张三");
   const [age, setAge] = useState(18);
   const [info, setInfo] = useState({
-    sex: '男',
-    desc: '我是一名程序员'
-  })
+    sex: "男",
+    desc: "我是一名程序员",
+  });
 
   const onNameChange = (e) => {
     setName(e.target.value);
@@ -22,15 +22,15 @@ function Lesson1() {
   const onSexChange = (e) => {
     setInfo({
       ...info,
-      sex: e.target.value
-    })
-  }
+      sex: e.target.value,
+    });
+  };
   const onDescChange = (e) => {
     setInfo({
       ...info,
-      desc: e.target.value
-    })
-  }
+      desc: e.target.value,
+    });
+  };
 
   return (
     <div>
@@ -60,59 +60,11 @@ function Lesson1() {
   );
 }
 
-
-function Lesson2() {
-  const [info, setInfo] = useState({
-    name: '李四'
-  })
-  const ctx = useContext(InfoContext)
-  const onNameChange = (e) => {
-    setInfo({
-      ...info,
-      name: e.target.value
-    })
-  }
-  return (
-    <div>
-      <h1>React 之 Context</h1>
-      <ul>
-        <li>上下文，用于多个组件深层访问同一数据</li>
-      </ul>
-      <h2>context 第一种使用方法</h2>
-      <InfoContext.Provider value={{...info, onNameChange}}>
-        <div>
-          <InfoContext.Consumer>
-            {
-              (ctx) => {
-                return (
-                  <div>
-                    姓名：<input value={ctx.name} onChange={ctx.onNameChange} />
-                    {ctx.name}
-                    {ctx.age}
-                    {ctx.sex}
-                  </div>
-                )
-              }
-            }
-          </InfoContext.Consumer>
-        </div>
-      </InfoContext.Provider>
-      <h2>context 第二种使用方法 useContext</h2>
-      <div>
-        {ctx.name}
-        {ctx.age}
-        {ctx.sex}
-      </div>
-      <ChildA></ChildA>
-    </div>
-  )
-}
-
 function Lesson3() {
-  const [name, setName] = useState('王五')
+  const [name, setName] = useState("王五");
   const onNameChange = (e) => {
-   setName(e.target.value) 
-  }
+    setName(e.target.value);
+  };
   return (
     <div>
       <h1>React 之 memo</h1>
@@ -125,66 +77,114 @@ function Lesson3() {
       <input value={name} onChange={onNameChange}></input>
       <ParentB name={name}></ParentB>
     </div>
-  )
+  );
 }
 
 function Lesson4() {
-  const [name, setName] = useState('useCallback')
+  const [name, setName] = useState("useCallback");
   const onNameChange = (e) => {
-   setName(e.target.value) 
-  }
+    setName(e.target.value);
+  };
   return (
     <div>
       <h1>React 之 useCallback</h1>
       <ul>
         <li>回调函数</li>
         <li>指定依赖数组，只有数组内依赖改变才会触发更新</li>
+        <li>返回值是函数</li>
       </ul>
       <input value={name} onChange={onNameChange}></input>
-      <ParentB  onClick={onNameChange}></ParentB>
+      <ParentB onClick={onNameChange}></ParentB>
     </div>
-  )
+  );
 }
 
-
-
 function Lesson5() {
-  const [count, setCount] = useState(1)
+  const [count, setCount] = useState(1);
   const sum = (a, b) => {
-    console.log('sum update')
-    return a + b
-  }
-  const result = useMemo(() => sum(1,2), [])
+    console.log("sum update");
+    return a + b;
+  };
+  const result = useMemo(() => sum(1, 2), []);
 
   const onClick = () => {
-    setCount(preState => preState + 1)
-  }
+    setCount((preState) => preState + 1);
+  };
   return (
     <div>
       <h1>React 之 useMemo</h1>
       <ul>
         <li>缓存函数执行结果</li>
         <li>指定依赖数组，只有数组内依赖改变才会触发更新</li>
+        <li>返回值是值</li>
       </ul>
       <div>
         计数器：{count}
-
         <button onClick={onClick}>点击增加</button>
         总和：{result}
       </div>
     </div>
-  )
+  );
+}
+
+function Lesson6() {
+  const root = useRef();
+  const rootC = useRef();
+  const rootD = useRef();
+  const onGetRef = () => {
+    console.log(root);
+    console.log(rootC);
+    console.log(rootD);
+  };
+  return (
+    <div>
+      <h1>React 之 useRef and React.forwardRef and useImperativeHandle</h1>
+      <ul>
+        <li>useRef 获取 dom 节点</li>
+        <li>React.forwardRef 用于父组件获取子组件中的dom</li>
+        <li>
+          useImperativeHandle hooks
+          是用于控制子组件中暴漏的ref的内容，用它包裹能够更好的暴漏子组件内容，视情况而定,
+          第三个参数是个数组，以来变化时重新计算
+        </li>
+      </ul>
+      <input ref={root} />
+      <ParentC ref={rootC}></ParentC>
+      <ParentD ref={rootD}></ParentD>
+      <button onClick={onGetRef}>获取ref</button>
+    </div>
+  );
+}
+
+function Lesson7() {
+  return (
+    <div>
+      <ul>
+        <li>
+          useEffect 生命周期 组件挂载 -》 state改变 -》 DOM 改变 -》 屏幕重绘
+          -》 useEffect
+        </li>
+        <li>
+          useLayoutEffect 生命周期 组件挂载 -》 state改变 -》 DOM 改变 -》
+          useLayoutEffect -》 屏幕重绘
+        </li>
+        <li>
+          useInsertionEffect 生命周期 组件挂在 -》 state改变 -》useInsertion
+          -》DOM改变 -》 屏幕重绘
+        </li>
+      </ul>
+    </div>
+  );
 }
 
 function Lesson() {
   return (
     <div>
       <Lesson1></Lesson1>
-      <Lesson2></Lesson2>
       {/* <Lesson3></Lesson3> */}
       <Lesson4></Lesson4>
       <Lesson5></Lesson5>
-
+      <Lesson6></Lesson6>
     </div>
   );
 }
