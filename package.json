@@ -7,11 +7,16 @@
     "dev": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "commitlint": "commitlint --edit --from HEAD~1 --to HEAD --verbose"
+    "cm": "git add -A && git-cz"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
   "dependencies": {
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.23.9",
@@ -26,11 +31,13 @@
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
     "@commitlint/cli": "^19.0.1",
-    "@commitlint/config-conventional": "^19.0.0",
+    "@commitlint/config-conventional": "17",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "babel-loader": "^9.1.3",
     "clean-webpack-plugin": "^4.0.0",
+    "commitizen": "^4.3.0",
     "css-loader": "^6.10.0",
+    "cz-git": "^1.8.0",
     "html-webpack-plugin": "^5.6.0",
     "husky": "^9.0.11",
     "less": "^4.2.0",
