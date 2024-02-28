@@ -13,3 +13,5 @@ yarn-error.log*
 
 ## Test environment files
 .env.test.local
+## vscode setting files
+.vscode

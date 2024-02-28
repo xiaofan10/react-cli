@@ -8,7 +8,7 @@ module.exports = {
   mode: "development",
   entry: "./src/index.js",
   output: {
-    publicPath: '/', // 输入地址绝对路径
+    publicPath: "/", // 输入地址绝对路径
     filename: "[name].js",
     path: __dirname + "/dist",
   },
@@ -72,10 +72,19 @@ module.exports = {
     static: "./dist",
     hot: true,
     historyApiFallback: true, // 使用history路由使用，告诉 webpack-dev-server 把所有请求指向根html
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        pathRewrite: { "^/api": "api" },
+      },
+    },
   },
 
   resolve: {
     extensions: [".js", ".jsx"],
+    alias: {
+      "@": path.resolve(__dirname, "src"), // 将路径简写为@
+    },
   },
 
   devtool: "inline-source-map",
