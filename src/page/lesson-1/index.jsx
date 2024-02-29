@@ -1,36 +1,37 @@
+/* eslint-disable no-unused-vars */
 // react 相关教程
-import React, { useState, useContext, useMemo, useRef } from "react";
-import { ParentB, ParentC, ParentD } from "./parent";
-import { ChildA, ChildB } from "./child";
-import InfoContext from "./context";
+import { useState, useMemo, useRef } from 'react'
+import { ParentB, ParentC, ParentD } from './parent'
+// import { ChildA, ChildB } from './child'
+// import InfoContext from './context'
 
 function Lesson1() {
-  const [name, setName] = useState("张三");
-  const [age, setAge] = useState(18);
+  const [name, setName] = useState('张三')
+  const [age, setAge] = useState(18)
   const [info, setInfo] = useState({
-    sex: "男",
-    desc: "我是一名程序员",
-  });
+    sex: '男',
+    desc: '我是一名程序员',
+  })
 
-  const onNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const onNameChange = e => {
+    setName(e.target.value)
+  }
 
-  const onAgeChange = (e) => {
-    setAge(e.target.value);
-  };
-  const onSexChange = (e) => {
+  const onAgeChange = e => {
+    setAge(e.target.value)
+  }
+  const onSexChange = e => {
     setInfo({
       ...info,
       sex: e.target.value,
-    });
-  };
-  const onDescChange = (e) => {
+    })
+  }
+  const onDescChange = e => {
     setInfo({
       ...info,
       desc: e.target.value,
-    });
-  };
+    })
+  }
 
   return (
     <div>
@@ -57,14 +58,14 @@ function Lesson1() {
         <input value={info.desc} onChange={onDescChange} />
       </div>
     </div>
-  );
+  )
 }
 
 function Lesson3() {
-  const [name, setName] = useState("王五");
-  const onNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const [name, setName] = useState('王五')
+  const onNameChange = e => {
+    setName(e.target.value)
+  }
   return (
     <div>
       <h1>React 之 memo</h1>
@@ -77,14 +78,14 @@ function Lesson3() {
       <input value={name} onChange={onNameChange}></input>
       <ParentB name={name}></ParentB>
     </div>
-  );
+  )
 }
 
 function Lesson4() {
-  const [name, setName] = useState("useCallback");
-  const onNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const [name, setName] = useState('useCallback')
+  const onNameChange = e => {
+    setName(e.target.value)
+  }
   return (
     <div>
       <h1>React 之 useCallback</h1>
@@ -96,20 +97,20 @@ function Lesson4() {
       <input value={name} onChange={onNameChange}></input>
       <ParentB onClick={onNameChange}></ParentB>
     </div>
-  );
+  )
 }
 
 function Lesson5() {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(1)
   const sum = (a, b) => {
-    console.log("sum update");
-    return a + b;
-  };
-  const result = useMemo(() => sum(1, 2), []);
+    console.log('sum update')
+    return a + b
+  }
+  const result = useMemo(() => sum(1, 2), [])
 
   const onClick = () => {
-    setCount((preState) => preState + 1);
-  };
+    setCount(preState => preState + 1)
+  }
   return (
     <div>
       <h1>React 之 useMemo</h1>
@@ -124,18 +125,18 @@ function Lesson5() {
         总和：{result}
       </div>
     </div>
-  );
+  )
 }
 
 function Lesson6() {
-  const root = useRef();
-  const rootC = useRef();
-  const rootD = useRef();
+  const root = useRef()
+  const rootC = useRef()
+  const rootD = useRef()
   const onGetRef = () => {
-    console.log(root);
-    console.log(rootC);
-    console.log(rootD);
-  };
+    console.log(root)
+    console.log(rootC)
+    console.log(rootD)
+  }
   return (
     <div>
       <h1>React 之 useRef and React.forwardRef and useImperativeHandle</h1>
@@ -153,28 +154,24 @@ function Lesson6() {
       <ParentD ref={rootD}></ParentD>
       <button onClick={onGetRef}>获取ref</button>
     </div>
-  );
+  )
 }
 
 function Lesson7() {
   return (
     <div>
       <ul>
+        <li>useEffect 生命周期 组件挂载 -》 state改变 -》 DOM 改变 -》 屏幕重绘 -》 useEffect</li>
         <li>
-          useEffect 生命周期 组件挂载 -》 state改变 -》 DOM 改变 -》 屏幕重绘
-          -》 useEffect
+          useLayoutEffect 生命周期 组件挂载 -》 state改变 -》 DOM 改变 -》 useLayoutEffect -》
+          屏幕重绘
         </li>
         <li>
-          useLayoutEffect 生命周期 组件挂载 -》 state改变 -》 DOM 改变 -》
-          useLayoutEffect -》 屏幕重绘
-        </li>
-        <li>
-          useInsertionEffect 生命周期 组件挂在 -》 state改变 -》useInsertion
-          -》DOM改变 -》 屏幕重绘
+          useInsertionEffect 生命周期 组件挂在 -》 state改变 -》useInsertion -》DOM改变 -》 屏幕重绘
         </li>
       </ul>
     </div>
-  );
+  )
 }
 
 function Lesson() {
@@ -185,8 +182,9 @@ function Lesson() {
       <Lesson4></Lesson4>
       <Lesson5></Lesson5>
       <Lesson6></Lesson6>
+      <Lesson7></Lesson7>
     </div>
-  );
+  )
 }
 
-export default Lesson;
+export default Lesson

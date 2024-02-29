@@ -1,29 +1,33 @@
-import { useState, memo, useCallback } from "react";
+import { useState, memo, useCallback } from 'react'
+import PropTypes from 'prop-types'
 
 function UChild(props) {
-  console.log("UChild update");
+  console.log('UChild update')
   return (
     <div>
       <button onClick={props.ongetUseGName}>获得用户名</button>
     </div>
-  );
+  )
+}
+UChild.propTypes = {
+  ongetUseGName: PropTypes.func.isRequired,
 }
 
-const MemoUChild = memo(UChild);
+const MemoUChild = memo(UChild)
 
 function UCallback() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("张三");
-  console.log("UCallback update");
+  const [count, setCount] = useState(0)
+  const [name, setName] = useState('张三')
+  console.log('UCallback update')
   const getUserName = useCallback(() => {
-    console.log(name);
-  }, [name]);
+    console.log(name)
+  }, [name])
   const add = () => {
-    setCount((prev) => prev + 1);
-  };
-  const onSetName = (e) => {
-    setName(e.target.value);
-  };
+    setCount(prev => prev + 1)
+  }
+  const onSetName = e => {
+    setName(e.target.value)
+  }
   return (
     <>
       <div>
@@ -33,7 +37,7 @@ function UCallback() {
       </div>
       <MemoUChild ongetUseGName={getUserName}></MemoUChild>
     </>
-  );
+  )
 }
 
 function Lesson() {
@@ -41,7 +45,7 @@ function Lesson() {
     <>
       <UCallback />
     </>
-  );
+  )
 }
 
-export default Lesson;
+export default Lesson

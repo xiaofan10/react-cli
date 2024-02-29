@@ -1,24 +1,17 @@
-import {
-  Component,
-  createContext,
-  useContext,
-  memo,
-  useState,
-  useMemo,
-} from "react";
-import styles from "./index.less";
+import { Component, createContext, useContext, memo, useState, useMemo } from 'react'
+import styles from './index.less'
 
 const ContextState = createContext({
   userInfo: {
-    name: "未初始化",
+    name: '未初始化',
     age: 0,
-    sex: "未初始化",
+    sex: '未初始化',
   },
-});
+})
 
 class GrandChild extends Component {
   render() {
-    console.log("GrandChild update");
+    console.log('GrandChild update')
     return (
       <div>
         <ContextState.Consumer>
@@ -29,23 +22,19 @@ class GrandChild extends Component {
                 <p>性别：{userInfo.sex}</p>
                 <p>年龄：{userInfo.age - 40}</p>
               </div>
-            );
+            )
           }}
         </ContextState.Consumer>
       </div>
-    );
+    )
   }
 }
 
-const MemoGrandChild = memo(GrandChild);
+const MemoGrandChild = memo(GrandChild)
 
 class Child extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    console.log("child update");
+    console.log('child update')
     return (
       <div>
         <ContextState.Consumer>
@@ -55,47 +44,45 @@ class Child extends Component {
                 <p>姓名：{userInfo.name} Child</p>
                 <p>性别：{userInfo.sex}</p>
                 <p>年龄：{userInfo.age - 20}</p>
-                <button onClick={() => onChangeAge(userInfo.age)}>
-                  改变年龄
-                </button>
+                <button onClick={() => onChangeAge(userInfo.age)}>改变年龄</button>
               </div>
-            );
+            )
           }}
         </ContextState.Consumer>
         <MemoGrandChild></MemoGrandChild>
       </div>
-    );
+    )
   }
 }
 
-const MemoChild = memo(Child);
+const MemoChild = memo(Child)
 
 class Parent extends Component {
   constructor() {
-    super();
+    super()
     this.state = {
       userInfo: {
-        name: "张三",
+        name: '张三',
         age: 14,
-        sex: "man",
+        sex: 'man',
       },
-    };
-    this.onChangeAge = this.onChangeAge.bind(this);
+    }
+    this.onChangeAge = this.onChangeAge.bind(this)
   }
 
   onChangeAge(val) {
-    const { userInfo } = this.state;
+    const { userInfo } = this.state
     this.setState({
       userInfo: {
         ...userInfo,
         age: val + 1,
       },
-    });
+    })
   }
 
   render() {
-    const { userInfo } = this.state;
-    console.log("parent update");
+    const { userInfo } = this.state
+    console.log('parent update')
     return (
       <div>
         <h1>React 之 Context</h1>
@@ -105,34 +92,32 @@ class Parent extends Component {
             <p>性别：{userInfo.sex}</p>
             <p>年龄：{userInfo.age}</p>
           </div>
-          <ContextState.Provider
-            value={{ userInfo, onChangeAge: this.onChangeAge }}
-          >
+          <ContextState.Provider value={{ userInfo, onChangeAge: this.onChangeAge }}>
             <MemoChild />
           </ContextState.Provider>
         </div>
       </div>
-    );
+    )
   }
 }
 
 function UGrandChild() {
-  const { userInfo } = useContext(ContextState);
+  const { userInfo } = useContext(ContextState)
   return useMemo(() => {
-    console.log("UGrandChild update");
+    console.log('UGrandChild update')
     return (
       <div>
         <p>姓名：{userInfo.name} GrandChild</p>
         <p>性别：{userInfo.sex}</p>
         <p>年龄：{userInfo.age - 40}</p>
       </div>
-    );
-  }, [userInfo]);
+    )
+  }, [userInfo])
 }
 
 function UChild() {
-  console.log("UChild update");
-  const { userInfo, onChangeAge } = useContext(ContextState);
+  console.log('UChild update')
+  const { userInfo, onChangeAge } = useContext(ContextState)
   return (
     <div>
       <div>
@@ -143,23 +128,23 @@ function UChild() {
       </div>
       <UGrandChild></UGrandChild>
     </div>
-  );
+  )
 }
-const MemoUChild = memo(UChild);
+const MemoUChild = memo(UChild)
 
 function UParent() {
   const [userInfo, setUserInfo] = useState({
-    name: "张三",
+    name: '张三',
     age: 14,
-    sex: "man",
-  });
-  const onChangeAge = (val) => {
+    sex: 'man',
+  })
+  const onChangeAge = val => {
     setUserInfo({
       ...userInfo,
       age: val + 1,
-    });
-  };
-  console.log("UParent update");
+    })
+  }
+  console.log('UParent update')
 
   return (
     <div>
@@ -171,12 +156,12 @@ function UParent() {
           <p>年龄：{userInfo.age}</p>
           <button onClick={() => onChangeAge(userInfo.age)}>改变年龄</button>
         </div>
-        <ContextState.Provider value={{ userInfo, onChangeAge: onChangeAge }}>
+        <ContextState.Provider value={{ userInfo, onChangeAge }}>
           <MemoUChild />
         </ContextState.Provider>
       </div>
     </div>
-  );
+  )
 }
 
 function Lesson() {
@@ -185,7 +170,7 @@ function Lesson() {
       <Parent />
       <UParent />
     </div>
-  );
+  )
 }
 
-export default Lesson;
+export default Lesson
