@@ -1,16 +1,19 @@
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const path = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// react 热更新插件
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.js",
+  mode: 'development',
+  entry: './src/index.js',
   output: {
-    publicPath: "/", // 输入地址绝对路径
-    filename: "[name].js",
-    path: __dirname + "/dist",
+    publicPath: '/', // 输入地址绝对路径
+    filename: '[name].js',
+    path: path.resolve(__dirname) + '/dist',
   },
 
   module: {
@@ -18,12 +21,14 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            plugins: ["react-refresh/babel"].filter(Boolean),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              plugins: ['react-refresh/babel'].filter(Boolean),
+            },
           },
-        },
+        ],
       },
       {
         test: /\.(css|less)$/,
@@ -31,14 +36,14 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           // "style-loader",
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: "[name]__[local]--[hash:base64:5]",
+                localIdentName: '[name]__[local]--[hash:base64:5]',
               },
             },
           },
-          "less-loader",
+          'less-loader',
         ], // 从右到左
       },
     ],
@@ -49,8 +54,8 @@ module.exports = {
       cacheGroups: {
         react: {
           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-          name: "react.min",
-          chunks: "all",
+          name: 'react.min',
+          chunks: 'all',
         },
       },
     },
@@ -59,33 +64,36 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Code Splitting",
+      title: 'Code Splitting',
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css", // 提取的CSS文件名
+      filename: '[name].css', // 提取的CSS文件名
     }),
     new ReactRefreshWebpackPlugin(),
+    new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+    }),
   ],
 
   devServer: {
     port: 8080,
-    static: "./dist",
+    static: './dist',
     hot: true,
     historyApiFallback: true, // 使用history路由使用，告诉 webpack-dev-server 把所有请求指向根html
     proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        pathRewrite: { "^/api": "api" },
+      '/api': {
+        target: 'http://localhost:3000',
+        pathRewrite: { '^/api': 'api' },
       },
     },
   },
 
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: ['.js', '.jsx'],
     alias: {
-      "@": path.resolve(__dirname, "src"), // 将路径简写为@
+      '@': path.resolve(__dirname, 'src'), // 将路径简写为@
     },
   },
 
-  devtool: "inline-source-map",
-};
+  devtool: 'inline-source-map',
+}

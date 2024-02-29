@@ -9,6 +9,7 @@ class App extends Component {
       name: '李四是啦啦啦啦'
     }
   }
+
   render() {
     const {name} = this.state;
     return (

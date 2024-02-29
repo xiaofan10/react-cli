@@ -1,18 +1,17 @@
-import { fetchUser } from "@/api";
-import { useEffect } from "react";
+import { fetchUser } from '@/api'
 
 function Lesson() {
   const getUserInfo = () => {
-    return fetchUser();
-  };
-  const { loading, data, error } = getUserInfo();
+    return fetchUser()
+  }
+  const { loading, data, error } = getUserInfo()
   return (
     <div>
-      <div>{loading ? "loading..." : "loaded"}</div>
+      <div>{loading ? 'loading...' : 'loaded'}</div>
       <div>{JSON.stringify(data)}</div>
       <div>{error}</div>
     </div>
-  );
+  )
 }
 
-export default Lesson;
+export default Lesson
