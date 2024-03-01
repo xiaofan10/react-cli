@@ -64,7 +64,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Code Splitting',
+      title: '沐宸居',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css', // 提取的CSS文件名
