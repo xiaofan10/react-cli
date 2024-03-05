@@ -57,6 +57,11 @@ module.exports = {
           name: 'react.min',
           chunks: 'all',
         },
+        antd: {
+          test: /[\\/]node_modules[\\/](antd)[\\/]/,
+          name: 'antd',
+          chunks: 'all',
+        },
       },
     },
   },
