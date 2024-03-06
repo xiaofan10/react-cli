@@ -15,3 +15,6 @@ yarn-error.log*
 .env.test.local
 ## vscode setting files
 .vscode
+
+## electron
+elec-dist
