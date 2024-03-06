@@ -1,6 +1,6 @@
 import App from '../App'
 import Welcome from '../page/welcome'
-import Lesson from '../page/lesson'
+import Home from '../page/home'
 
 const router = [
   {
@@ -14,9 +14,9 @@ const router = [
         label: 'Welcome',
       },
       {
-        path: 'lesson',
-        label: 'Lesson',
-        element: <Lesson />,
+        path: 'home',
+        label: 'Home',
+        element: <Home />,
       },
     ],
   },

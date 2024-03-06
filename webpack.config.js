@@ -1,14 +1,16 @@
 const path = require('path')
+const { merge } = require('webpack-merge')
+const PRO_CONFIG = require('./webpack.config.pro')
+const DEV_CONFIG = require('./webpack.config.dev')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// react 热更新插件
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 const ESLintPlugin = require('eslint-webpack-plugin')
+const mode = process.env.NODE_ENV
 
-module.exports = {
-  mode: 'development',
+const BASE_CONFIG = {
+  mode,
   entry: './src/index.js',
   output: {
     publicPath: '/', // 输入地址绝对路径
@@ -49,23 +51,6 @@ module.exports = {
     ],
   },
 
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        react: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-          name: 'react.min',
-          chunks: 'all',
-        },
-        antd: {
-          test: /[\\/]node_modules[\\/](antd)[\\/]/,
-          name: 'antd',
-          chunks: 'all',
-        },
-      },
-    },
-  },
-
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -74,24 +59,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css', // 提取的CSS文件名
     }),
-    new ReactRefreshWebpackPlugin(),
     new ESLintPlugin({
       extensions: ['js', 'jsx'],
     }),
   ],
-
-  devServer: {
-    port: 8080,
-    static: './dist',
-    hot: true,
-    historyApiFallback: true, // 使用history路由使用，告诉 webpack-dev-server 把所有请求指向根html
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        pathRewrite: { '^/api': 'api' },
-      },
-    },
-  },
 
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -99,6 +70,6 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'), // 将路径简写为@
     },
   },
-
-  devtool: 'inline-source-map',
 }
+
+module.exports = merge(BASE_CONFIG, mode === 'development' ? DEV_CONFIG : PRO_CONFIG)
