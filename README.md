@@ -11,4 +11,6 @@
 1. 构建镜像 1. docker build -t react-cli .
 2. nginx 配置文件会构建到docker镜像中
 
-#
+# #Electron
+
+- 打包构建失败，尝试更换网络
