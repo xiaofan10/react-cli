@@ -1,0 +1,7 @@
+appId: com.example.myapp
+productName: My App
+directories:
+  output: elec-dist
+win:
+  target:
+    - nsis

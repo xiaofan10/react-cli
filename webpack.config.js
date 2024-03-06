@@ -5,7 +5,6 @@ const DEV_CONFIG = require('./webpack.config.dev')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
 const ESLintPlugin = require('eslint-webpack-plugin')
 const mode = process.env.NODE_ENV
 
@@ -20,18 +19,6 @@ const BASE_CONFIG = {
 
   module: {
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              plugins: ['react-refresh/babel'].filter(Boolean),
-            },
-          },
-        ],
-      },
       {
         test: /\.(css|less)$/,
         use: [
@@ -71,5 +58,4 @@ const BASE_CONFIG = {
     },
   },
 }
-
 module.exports = merge(BASE_CONFIG, mode === 'development' ? DEV_CONFIG : PRO_CONFIG)
