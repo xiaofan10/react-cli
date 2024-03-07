@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import routers from './router'
 import store from './store'
 import { Provider } from 'react-redux'
-import Theme from '@/components/Theme'
+import Theme from '@/components/theme'
 
 document.body.innerHTML = '<div id="app"></div>'
 const root = createRoot(document.getElementById('app'))

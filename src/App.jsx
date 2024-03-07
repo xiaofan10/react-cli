@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import styles from './app.less'
+import styles from './app.module.less'
 import { Layout, Menu } from 'antd'
 import { AntdRouter } from './router'
 

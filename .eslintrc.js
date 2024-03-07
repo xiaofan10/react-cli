@@ -25,6 +25,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
+
   rules: {
     // eslint (http://eslint.cn/docs/rules)
     // 'no-unused-vars': 'error',

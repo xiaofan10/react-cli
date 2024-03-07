@@ -1,5 +1,5 @@
-import styles from "./index.less";
-import { Outlet } from "react-router-dom";
+import styles from './index.module.less'
+import { Outlet } from 'react-router-dom'
 
 function Welcome() {
   console.log(styles)
@@ -11,4 +11,4 @@ function Welcome() {
   )
 }
 
-export default Welcome;
+export default Welcome
