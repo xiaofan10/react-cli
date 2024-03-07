@@ -1,49 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState } from 'react'
 
-function useFetch(request, url, options = {}) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  let completed = false;
+function useFetch(fetchFn) {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  useEffect(() => {
-    let isMounted = true;
-    const source = request.createCancelToken();
-
-    const fetchData = async () => {
-      setLoading(true);
+  const fetchData = async params => {
+    setLoading(true)
+    setTimeout(async () => {
       try {
-        const response = await request.instance(url, {
-          ...options,
-          cancelToken: source.token,
-        });
-        completed = true;
-        if (isMounted) {
-          setData(response.data);
-        }
+        const response = await fetchFn(params)
+        setData(response)
       } catch (error) {
-        if (isMounted) {
-          setError(error);
-        }
+        setError(error)
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false)
       }
-    };
+    }, 3000)
+  }
 
-    fetchData();
-
-    return () => {
-      isMounted = false;
-      if (!completed && source) {
-        console.log("执行卸载了", source);
-        source.cancel("Request canceled by cleanup");
-      }
-    };
-  }, []);
-
-  return { data, loading, error };
+  return { data, loading, error, fetchData }
 }
 
-export default useFetch;
+export default useFetch
+// useEffect(() => {
+//   let isMounted = true;
+//   const source = request.createCancelToken();
+
+//   fetchData();
+
+//   return () => {
+//     isMounted = false;
+//     if (!completed && source) {
+//       console.log("执行卸载了", source);
+//       source.cancel("Request canceled by cleanup");
+//     }
+//   };
+// }, []);

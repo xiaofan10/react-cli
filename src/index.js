@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import routers from './router'
 import store from './store'
 import { Provider } from 'react-redux'
-import { ConfigProvider } from 'antd'
+import Theme from '@/components/Theme'
 
 document.body.innerHTML = '<div id="app"></div>'
 const root = createRoot(document.getElementById('app'))
@@ -11,9 +11,9 @@ const root = createRoot(document.getElementById('app'))
 const router = createBrowserRouter(routers)
 
 root.render(
-  <ConfigProvider>
-    <Provider store={store}>
+  <Provider store={store}>
+    <Theme>
       <RouterProvider router={router} />
-    </Provider>
-  </ConfigProvider>
+    </Theme>
+  </Provider>
 )
