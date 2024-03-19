@@ -1,9 +1,7 @@
-import { request } from './request'
+import { Request } from './request'
 
-export const fetchLogin = ({ params = {} } = {}) => {
-  return request({
-    url: '/user',
-    method: 'get',
-    params,
-  })
+const request = new Request()
+
+export const login = (params = {}) => {
+  return request.$get('/api/getUsers', params)
 }

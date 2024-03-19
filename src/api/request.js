@@ -41,15 +41,38 @@ class Request {
       },
       error => {
         // 对响应错误做点什么
-        if (error.code === 'ERR_CANCELED') {
-          return error
-        }
         return Promise.reject(error)
       }
     )
   }
+
+  $get(url, params) {
+    const source = this.createCancelToken()
+    return {
+      fetch: () =>
+        this.instance.get(url, {
+          cancelToken: source.token,
+          params,
+        }),
+      cancel: () => {
+        source.cancel()
+      },
+    }
+  }
+
+  $post(url, data = {}, options = {}) {
+    const source = this.createCancelToken()
+    return {
+      fetch: () =>
+        this.instance.post(url, data, {
+          cancelToken: source.token,
+          ...options,
+        }),
+      cancel: () => {
+        source.cancel()
+      },
+    }
+  }
 }
 
-const { instance: request } = new Request()
-// 可以导出多个请求实力，防止项目请求有不同的配置要求，根据不同配置要求进行初始化
-export { URL, request }
+export { URL, Request }

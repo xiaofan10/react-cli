@@ -20,7 +20,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    port: 8080,
+    port: 8088,
     static: './dist',
     hot: true,
     historyApiFallback: true, // 使用history路由使用，告诉 webpack-dev-server 把所有请求指向根html
